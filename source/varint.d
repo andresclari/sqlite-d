@@ -8,7 +8,7 @@ import utils;
 enum unrolled = true;
 
 struct VarInt {
-	pure nothrow @safe @nogc :
+	pure nothrow @nogc :
 	this(BigEndian!long value) {
 		//FIXME the constructor does not work for value bigger then uint.max;
 		auto len = lengthInVarInt(value);
