@@ -739,7 +739,7 @@ static Database.Payload extractPayload(
 		overflowInfo.pageSlice = overflowInfo.pageSlice[_length .. $];
 
 		if (overflowInfo.pageSlice.length == uint.sizeof) {
-			assert(0, "I do not expect us to ever get here\n"
+			assert(0, "I do not expect us to ever get here\n" ~
 				"If we ever do, uncomment the two lines below and delete this assert");
 		//		overflowInfo.nextPageIdx = BigEndian(overflowInfo.pageSlice[0 .. uint.sizeof]);
 		//		overflowInfo.gotoNextPage(pages);
@@ -807,8 +807,8 @@ static Database.Payload extractPayload(const ubyte[] startPayload,
 			break;
 		case typeof(typeCode).float64:
 			if (!__ctfe) {
-				p.float64 = *cast(double*) startPayload;
-				assert(0, "Not supported at runtime either it's BigEndian :)");
+				p.float64 = cast(double) (*cast(BigEndian!long*) startPayload);
+                break;
 			} else
 				assert(0, "not supporeted at CTFE yet");
 		//	break;
